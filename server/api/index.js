@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const mysql = require('mysql');
 
+
 const app = express();
 
 const pool = mysql.createPool({

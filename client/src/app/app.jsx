@@ -1,9 +1,9 @@
 import React from 'react';
-import { SampleComponent } from 'components';
+import Timeline from "components/timeline-component/timeline";
 
 function App() {
   return (
-    <SampleComponent />
+    <Timeline />
   );
 }
 
