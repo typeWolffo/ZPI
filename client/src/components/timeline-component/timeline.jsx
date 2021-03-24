@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Chart} from "react-google-charts";
+import Employee from "../../models/employee";
 
 
 class Timeline extends Component {
@@ -20,16 +21,7 @@ class Timeline extends Component {
             this.setState({responseVehiclesData});
             console.log(responseVehiclesData)
         });
-
-        axios.get(`http://localhost:${process.env.REACT_APP_SERVER_PORT}`, {
-            params: {
-                table: 'employees'
-            },
-        }).then((response) => {
-            const responseEmployeesData = response.data;
-            this.setState({responseEmployeesData});
-            console.log(responseEmployeesData)
-        });
+        console.log(<Employee />);
     }
 
 
@@ -45,11 +37,11 @@ class Timeline extends Component {
                     loader={<div>Loading Chart</div>}
                     data={[
                         [
-                            {type: 'string', id: 'Employee'},
+                            {type: '', id: 'Employee'},
                             {type: 'date', id: 'Start'},
                             {type: 'date', id: 'End'},
                         ],
-                        [`${this.state.responseEmployeesData ? this.state.responseEmployeesData[0].name : ''}`, new Date(1789, 3, 30), new Date(1797, 2, 4)],
+                        [`${<Employee />}`, new Date(1789, 3, 30), new Date(1797, 2, 4)],
                         ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
                         ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)],
                     ]}
@@ -59,7 +51,6 @@ class Timeline extends Component {
                     rootProps={{'data-testid': '1'}}
                 />
             </div>
-
         )
     }
 }
