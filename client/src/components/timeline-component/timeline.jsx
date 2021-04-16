@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Chart} from "react-google-charts";
 import Employee from "../../models/employee";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from '@fullcalendar/daygrid'
 
 
-class Timeline extends Component {
+class Timeline extends React.Component {
     state = {
         responseVehiclesData: '',
         responseEmployeesData: '',
@@ -30,25 +31,30 @@ class Timeline extends Component {
 
         return (
             <div>
-                <Chart
-                    width={'auto'}
-                    height={'300px'}
-                    chartType="Timeline"
-                    loader={<div>Loading Chart</div>}
-                    data={[
-                        [
-                            {type: '', id: 'Employee'},
-                            {type: 'date', id: 'Start'},
-                            {type: 'date', id: 'End'},
-                        ],
-                        [`${<Employee />}`, new Date(1789, 3, 30), new Date(1797, 2, 4)],
-                        ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-                        ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)],
-                    ]}
-                    options={{
-                        showRowNumber: true,
-                    }}
-                    rootProps={{'data-testid': '1'}}
+                <h1>test</h1>
+                {/*<Chart*/}
+                {/*    width={'auto'}*/}
+                {/*    height={'300px'}*/}
+                {/*    chartType="Timeline"*/}
+                {/*    loader={<div>Loading Chart</div>}*/}
+                {/*    data={[*/}
+                {/*        [*/}
+                {/*            {type: '', id: 'Employee'},*/}
+                {/*            {type: 'date', id: 'Start'},*/}
+                {/*            {type: 'date', id: 'End'},*/}
+                {/*        ],*/}
+                {/*        [`${<Employee />}`, new Date(1789, 3, 30), new Date(1797, 2, 4)],*/}
+                {/*        ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],*/}
+                {/*        ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)],*/}
+                {/*    ]}*/}
+                {/*    options={{*/}
+                {/*        showRowNumber: true,*/}
+                {/*    }}*/}
+                {/*    rootProps={{'data-testid': '1'}}*/}
+                {/*/>*/}
+                <FullCalendar
+                    plugins={[ dayGridPlugin ]}
+                    initialView="dayGridMonth"
                 />
             </div>
         )
