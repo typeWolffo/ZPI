@@ -5,7 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid'
 
 
-class Timeline extends React.Component {
+class Timeline extends Component {
     state = {
         responseVehiclesData: '',
         responseEmployeesData: '',

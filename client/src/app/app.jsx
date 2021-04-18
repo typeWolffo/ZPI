@@ -1,12 +1,10 @@
 import React from 'react';
-import Employee from "../models/employee";
-import Timeline from "../components/timeline-component/timeline";
+import Login from "../components/login-form/login";
 
 function App() {
     return (
         <div>
-            <Timeline/>
-            <Employee/>
+            <Login />
         </div>
     );
 }

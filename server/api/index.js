@@ -1,7 +1,8 @@
 const cors = require('cors');
 const express = require('express');
 const mysql = require('mysql');
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 
@@ -28,4 +29,10 @@ app.get('/', (req, res) => {
       return res.send(results);
     }
   });
+});
+app.post('/login', (req, res) => {
+ const username = req.body.username;
+ const password = req.body.password;
+
+ pool.query(``)
 });
