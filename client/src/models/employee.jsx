@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios";
+import {defaults} from "react-chartjs-2";
 
 class Employee extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name : '',
-            surname : '',
+            login: '',
         }
+
     }
 
     componentDidMount() {
@@ -17,14 +18,15 @@ class Employee extends Component {
             },
         }).then((response) => {
             this.setState({
-                name: response.data[0].name,
-                surname: response.data[0].surname,
+                login: response.data[0].login,
             })
-            console.log(this.state.name)
+            console.log(this.state.login)
         });
     }
+
     render() {
-        return <div>{this.state.name}</div>
+            return <div>{this.state.login}</div>
     }
 }
+
 export default Employee;

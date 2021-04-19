@@ -7,63 +7,119 @@ import axios from "axios";
 import '@fontsource/montserrat';
 
 const styles = theme => ({
-        container: {
-            display: "flex",
-            flexDirection: "column",
-            width: "100vw",
-            alignItems: "center",
-        },
-        input: {
-            display: "flex",
-            flexDirection: "column",
-            width: "300px",
-            marginBottom: "20px"
-        },
-    });
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100vw",
+        alignItems: "center",
+    },
+    input: {
+        display: "flex",
+        flexDirection: "column",
+        width: "300px",
+        marginBottom: "20px"
+    },
+    title: {
+        fontFamily: "Montserrat",
+        padding: "30px 0"
+    }
+});
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             usernameReg: '',
-            passReg: ''
+            passReg: '',
+            user: '',
+            password: ''
         };
+        this.register = this.register.bind(this);
+        this.login = this.login.bind(this);
     }
 
     register() {
+        if (this.state.usernameReg) {
             axios.post('http://localhost:8000/register', {
-                username: this.usernameReg,
-                password: this.passReg,
+                username: this.state.usernameReg,
+                password: this.state.passReg,
             }).then((response) => {
                 console.log(response);
             })
         }
+    }
+    login() {
+        if (this.state.user) {
+            axios.post('http://localhost:8000/login', {
+                username: this.state.user,
+                password: this.state.password,
+            }).then((response) => {
+                console.log(response);
+            })
+        }
+    }
 
     render() {
+
         const {classes} = this.props;
-        console.log(this.state.usernameReg)
         return (
             <div>
+                {/*REGISTER*/}
                 <Container className={classes.container}>
-                    <Typography variant="h4">Rejestracja</Typography>
-                    <TextField className={classes.input} type="text" id="outlined-basic" label="Login"
+                    <Typography variant="h4"
+                                className={classes.title}>
+                                Rejestracja</Typography>
+                    <TextField className={classes.input}
+                               type="text"
+                               id="outlined-basic"
+                               label="Login"
                                variant="outlined"
                                onChange={(e) => {
-                                   this.setState({usernameReg: (e.target.value)});
-                               }} />
-                    <TextField className={classes.input} type="password" id="outlined-basic" label="Hasło"
-                               variant="outlined" onChange={(e) => {
-                        this.setState({passReg: (e.target.value)})
-                    }} />
-                    <Button onClick={this.register} variant="outlined" color="secondary">Zarejestruj</Button>
+                                   this.setState({usernameReg: e.target.value});
+                               }}/>
+
+                    <TextField className={classes.input}
+                               type="password"
+                               id="outlined-basic"
+                               label="Hasło"
+                               variant="outlined"
+                               onChange={(e) => {
+                                   this.setState({passReg: (e.target.value)})
+                               }}/>
+
+                    <Button variant="outlined"
+                            color="secondary"
+                            onClick={this.register}>
+                            Zarejestruj</Button>
                 </Container>
+
+                {/*LOGIN*/}
                 <Container className={classes.container}>
-                    <h1>Logowanie</h1>
-                    <TextField className={classes.input} type="text" id="outlined-basic" label="Login"
-                               variant="outlined"/>
-                    <TextField className={classes.input} type="password" id="outlined-basic" label="Hasło"
-                               variant="outlined"/>
-                    <Button variant="outlined" color="primary">Zaloguj</Button>
+                    <Typography variant="h4"
+                                className={classes.title}>
+                                Logowanie</Typography>
+                    <TextField className={classes.input}
+                               type="text"
+                               id="outlined-basic"
+                               label="Login"
+                               variant="outlined"
+                               onChange={(e) => {
+                                   this.setState({user: (e.target.value)})
+                               }}/>
+
+                    <TextField className={classes.input}
+                               type="password"
+                               id="outlined-basic"
+                               label="Hasło"
+                               variant="outlined"
+                               onChange={(e) => {
+                                   this.setState({password: (e.target.value)})
+                               }}/>
+
+                    <Button variant="outlined"
+                            color="primary"
+                            onClick={this.login}>
+                            Zaloguj</Button>
                 </Container>
             </div>
         )
