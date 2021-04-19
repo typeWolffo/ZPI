@@ -1,9 +1,10 @@
 import React, {Component, useState} from "react";
-import {TextField} from '@material-ui/core';
+import {TextField, Typography} from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import '@fontsource/montserrat';
 
 const styles = theme => ({
         container: {
@@ -30,31 +31,30 @@ class Login extends Component {
     }
 
     register() {
-        axios.post('http://localhost:8000/register', {
-            username: this.usernameReg,
-            password: this.passReg,
-        }).then((response) =>{
-            console.log(response);
-        })
-    }
+            axios.post('http://localhost:8000/register', {
+                username: this.usernameReg,
+                password: this.passReg,
+            }).then((response) => {
+                console.log(response);
+            })
+        }
 
     render() {
         const {classes} = this.props;
+        console.log(this.state.usernameReg)
         return (
             <div>
                 <Container className={classes.container}>
-                    <h1>Rejestracja</h1>
+                    <Typography variant="h4">Rejestracja</Typography>
                     <TextField className={classes.input} type="text" id="outlined-basic" label="Login"
                                variant="outlined"
                                onChange={(e) => {
-                                   this.setState({usernameReg: e.target.value});
-                               }}
-                    />
+                                   this.setState({usernameReg: (e.target.value)});
+                               }} />
                     <TextField className={classes.input} type="password" id="outlined-basic" label="Hasło"
                                variant="outlined" onChange={(e) => {
-                        this.setState({passReg: e.target.value})
-                    }}
-                    />
+                        this.setState({passReg: (e.target.value)})
+                    }} />
                     <Button onClick={this.register} variant="outlined" color="secondary">Zarejestruj</Button>
                 </Container>
                 <Container className={classes.container}>

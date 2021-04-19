@@ -6,6 +6,10 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 
+app.use(express.json());
+app.use(cors());
+
+
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST_IP,
   user: process.env.MYSQL_USER,
@@ -13,7 +17,6 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE,
 });
 
-app.use(cors());
 
 app.listen(process.env.REACT_APP_SERVER_PORT, () => {
   console.log(`App server now listening on port ${process.env.REACT_APP_SERVER_PORT}`);
@@ -30,9 +33,11 @@ app.get('/', (req, res) => {
     }
   });
 });
-app.post('/login', (req, res) => {
+app.post('/register', (req, res) => {
  const username = req.body.username;
  const password = req.body.password;
 
- pool.query(``)
+ pool.query("INSERT INTO employees (login, password) VALUES (?,?)", [username, password], (err, result) => {
+   console.log(err);
+ })
 });
