@@ -50,7 +50,7 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    pool.query(`INSERT INTO employees (login, password)
+    pool.query(`INSERT INTO Employee (login, password)
                 VALUES (?, ?)`,
         [username, password],
         (err, result) => {
@@ -63,7 +63,7 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
 
     pool.query(`SELECT *
-                FROM employees
+                FROM Employee
                 WHERE login = ?
                   AND password = ?`,
         [username, password],

@@ -14,7 +14,7 @@ class Employee extends Component {
     componentDidMount() {
         axios.get(`http://localhost:${process.env.REACT_APP_SERVER_PORT}`, {
             params: {
-                table: 'employees'
+                table: 'Employee'
             },
         }).then((response) => {
             this.setState({

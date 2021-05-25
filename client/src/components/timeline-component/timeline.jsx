@@ -15,7 +15,7 @@ class Timeline extends Component {
     componentDidMount() {
         axios.get(`http://localhost:${process.env.REACT_APP_SERVER_PORT}`, {
             params: {
-                table: 'vehicles'
+                table: 'Vehicle'
             },
         }).then((response) => {
             const responseVehiclesData = response.data[0];

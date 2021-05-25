@@ -3,7 +3,7 @@ version: "3.4"
 x-common-variables: &common-variables
   MYSQL_USER: root
   MYSQL_PASSWORD: root
-  MYSQL_DATABASE: workshop_app
+  MYSQL_DATABASE: eGarage
   REACT_APP_SERVER_PORT: 8000
 
 services:
@@ -18,7 +18,7 @@ services:
       - 3307:3306
     restart: unless-stopped
     volumes:
-      - ./db/workshop_app.sql:/docker-entrypoint-initdb.d/workshop_app.sql
+      - ./db/eGarage.sql:/docker-entrypoint-initdb.d/eGarage.sql
   phpmyadmin:
     depends_on:
       - mysql-db
