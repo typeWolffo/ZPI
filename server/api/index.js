@@ -89,15 +89,18 @@ app.post('/login', (req, res) => {
             if (result.length > 0) {
                 bcrypt.compare(password, result[0].Password, (error, response) => {
                     if (response) {
+                        req.session.user = result;
+                        console.log(req.session.user);
                         res.send(result)
-                        console.log(' \n logged in \n')
+                        console.log(`▓▓▓▓▓▓▓▓\n ${req.session.user[0].Username} logged in \n▓▓▓▓▓▓▓▓`)
                     } else {
                         res.send({message: "Niepoprawne hasło lub login!"});
+                        console.log('▓▓▓▓▓▓▓▓\n invalid login or password \n▓▓▓▓▓▓▓▓')
                     }
                 });
             } else {
                 res.send({message: "Konto nie istnieje"});
-                console.log("\n user doesn't exist \n")
+                console.log("▓▓▓▓▓▓▓▓\n user doesn't exist \n▓▓▓▓▓▓▓▓")
             }
         }
     );

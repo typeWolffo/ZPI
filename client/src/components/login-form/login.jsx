@@ -28,6 +28,8 @@ const styles = theme => ({
     }
 });
 
+axios.defaults.withCredentials = true;
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -61,6 +63,7 @@ class Login extends Component {
             })
         }
     }
+
 
     render() {
 
