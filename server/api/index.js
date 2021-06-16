@@ -1,13 +1,13 @@
 const cors = require('cors');
 const express = require('express');
 const mysql = require('mysql');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const bcrypt = require("bcrypt");
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const app = express();
 
@@ -20,6 +20,16 @@ app.use(cors({
 );
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(session({
+    key: "userID",
+    secret: "aezakmi",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60*60*24,
+    },
+}))
 
 const pool = mysql.createConnection({
     host: process.env.MYSQL_HOST_IP,
@@ -50,12 +60,18 @@ app.post('/register', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    pool.query(`INSERT INTO Employee (Name, Surname)
-                VALUES (?, ?)`,
-        [username, password],
-        (err, result) => {
-            console.log(err);
-        })
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+
+        if (err) console.log(err);
+
+        pool.query(`INSERT INTO Users (Username, Password)
+                    VALUES (?, ?)`,
+            [username, hash],
+            (err, result) => {
+                console.log(err);
+            }
+        )
+    })
 });
 
 app.post('/login', (req, res) => {
@@ -63,19 +79,25 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
 
     pool.query(`SELECT *
-                FROM Employee
-                WHERE Name = ?
-                  AND Surname = ?`,
-        [username, password],
+                FROM Users
+                WHERE Username = ?;`,
+        username,
         (err, result) => {
             if (err) {
                 res.send({err: err})
             }
-
             if (result.length > 0) {
-                res.send(result);
+                bcrypt.compare(password, result[0].Password, (error, response) => {
+                    if (response) {
+                        res.send(result)
+                        console.log(' \n logged in \n')
+                    } else {
+                        res.send({message: "Niepoprawne hasło lub login!"});
+                    }
+                });
             } else {
-                res.send({message: "Niepoprawne hasło lub login!"});
+                res.send({message: "Konto nie istnieje"});
+                console.log("\n user doesn't exist \n")
             }
         }
     );
