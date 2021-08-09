@@ -55,6 +55,17 @@ app.get('/', (req, res) => {
         }
     });
 });
+app.get('/users', (req, res) => {
+
+    pool.query(`select *
+                from Users`, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.send(results);
+        }
+    });
+});
 
 app.post('/register', (req, res) => {
     const username = req.body.username;

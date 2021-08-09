@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Employee from "../../models/employee";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid'
 
@@ -22,7 +21,6 @@ class Timeline extends Component {
             this.setState({responseVehiclesData});
             console.log(responseVehiclesData)
         });
-        console.log(<Employee />);
     }
 
 
